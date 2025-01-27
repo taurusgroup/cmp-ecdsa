@@ -125,35 +125,21 @@ type CorreOTReceiveSetup struct {
 	_K_1 [params.OTParam][params.OTBytes]byte
 }
 
-// MarshalJSON customizes the JSON representation of CorreOTReceiveSetup.
-//
-// This is necessary to marshal the ConfigReceiver struct.
 func (c *CorreOTReceiveSetup) MarshalJSON() ([]byte, error) {
-	// Convert byte arrays to base64 strings for JSON compatibility
-	type Alias CorreOTReceiveSetup
 	return json.Marshal(&struct {
 		K0 []string `json:"K_0"`
 		K1 []string `json:"K_1"`
-		*Alias
 	}{
-		K0:    convertToBase64Strings(c._K_0),
-		K1:    convertToBase64Strings(c._K_1),
-		Alias: (*Alias)(c),
+		K0: convertToBase64Strings(c._K_0),
+		K1: convertToBase64Strings(c._K_1),
 	})
 }
 
-// UnmarshalJSON customizes the JSON unmarshalling of CorreOTReceiveSetup.
-//
-// This is necessary to unmarshal the ConfigReceiver struct.
 func (c *CorreOTReceiveSetup) UnmarshalJSON(data []byte) error {
-	type Alias CorreOTReceiveSetup
 	aux := &struct {
 		K0 []string `json:"K_0"`
 		K1 []string `json:"K_1"`
-		*Alias
-	}{
-		Alias: (*Alias)(c),
-	}
+	}{}
 	if err := json.Unmarshal(data, &aux); err != nil {
 		return err
 	}
@@ -162,35 +148,21 @@ func (c *CorreOTReceiveSetup) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON customizes the JSON representation of CorreOTSendSetup.
-//
-// This is necessary to marshal the ConfigSender struct.
 func (c *CorreOTSendSetup) MarshalJSON() ([]byte, error) {
-	// Convert byte arrays to base64 strings for JSON compatibility
-	type Alias CorreOTSendSetup
 	return json.Marshal(&struct {
 		Delta   string   `json:"Delta"`
 		K_Delta []string `json:"K_Delta"`
-		*Alias
 	}{
 		Delta:   convertToBase64String(c._Delta),
 		K_Delta: convertToBase64Strings(c._K_Delta),
-		Alias:   (*Alias)(c),
 	})
 }
 
-// UnmarshalJSON customizes the JSON unmarshalling of CorreOTSendSetup.
-//
-// This is necessary to unmarshal the ConfigSender struct.
 func (c *CorreOTSendSetup) UnmarshalJSON(data []byte) error {
-	type Alias CorreOTSendSetup
 	aux := &struct {
 		Delta   string   `json:"Delta"`
 		K_Delta []string `json:"K_Delta"`
-		*Alias
-	}{
-		Alias: (*Alias)(c),
-	}
+	}{}
 	if err := json.Unmarshal(data, &aux); err != nil {
 		return err
 	}
